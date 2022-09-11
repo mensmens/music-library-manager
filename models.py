@@ -47,6 +47,16 @@ class Datastorage:
         return True
     
     def add_artist(self, name: str, alternative_names: tuple[str]=tuple()) -> bool:
+        """
+        Adds an artist to file.
+
+        Args:
+            name (str): The name of the artist
+            alternative_names (tuple[str], optional): Sets the alternative names of the artist.
+
+        Returns:
+            bool: True if sucess else False
+        """
         if len(self.get_artist(name)) != 0:
             return False
         data: list = self.read()
@@ -60,6 +70,15 @@ class Datastorage:
         return True
     
     def change_artist(self, name: str, **kwargs) -> bool:
+        """
+        Changes the additional information of an artist.
+
+        Args:
+            name (str): Name of the artist for recognition.
+
+        Returns:
+            bool: True on success else False
+        """
         artists: list = self.get_artist(name)
         if len(artists) != 1:
             return False
@@ -70,6 +89,16 @@ class Datastorage:
         return True
     
     def change_artist_name(self, name: str, new_name: str) -> bool:
+        """
+        Changes the artist name.
+
+        Args:
+            name (str): The current name of the artist.
+            new_name (str): The future name of the artist.
+
+        Returns:
+            bool: True if success else False
+        """
         matches: list = self.get_artist(new_name)
         if len(matches) > 0:
             return False
@@ -82,6 +111,16 @@ class Datastorage:
         return True
 
     def overwrite_artist(self, name: str, artist: dict) -> bool:
+        """
+        Overwrites the artist dictionary in the file.
+
+        Args:
+            name (str): Name of the artist for recognition.
+            artist (dict): The artist as a dictionary.
+
+        Returns:
+            bool: True if success else False
+        """
         data: list = self.read()
         for index, element in enumerate(data):
             if element["name"] == name:
@@ -94,14 +133,35 @@ class Datastorage:
         return True
 
     def get_artist(self, search_name: str) -> list:
+        """
+        Gets all artist which name matches with the given name.
+
+        Args:
+            search_name (str): The name of the artist you want to search.
+
+        Returns:
+            list: All artist which name matches with the search_name.
+        """
         return [ element for element in self.read() if element["name"] == search_name ]
     
     def truncate(self) -> bool:
+        """
+        Clears the file.
+
+        Returns:
+            bool: True on success else False.
+        """
         if self.write([]):
             return True
         return False
     
     def delete(self) -> bool:
+        """
+        Deletes the file.
+
+        Returns:
+            bool: True on success else False.
+        """
         try:
             os.remove(self.path)
         except:
