@@ -1,6 +1,72 @@
 import json, os
 
 
+class Musicfolder:
+    def __init__(self, path: str):
+        """
+        Manage files and folder in the music folder.
+
+        Args:
+            path (str): Path to music folder.
+        """
+        self.path = path
+
+    def get_all_files(self, file_extension: str=".mp3") -> list:
+        """
+        Retriev all files with given extension as a list.
+
+        Args:
+            file_extension (str, optional): For example .mp3, .mp4, .ogg, etc.. Defaults to ".mp3".
+
+        Returns:
+            list: All files inside the rootfolder and subfolders with the given file extension.
+        """
+        return [
+            os.path.join(root, element)
+            for root, directories, elements in os.walk(self.path)
+            for element in elements
+            if file_extension in element[-len(file_extension):].lower()
+        ]
+
+    def print_all_files(self, file_extension: str=".mp3") -> None:
+        """
+        Prints all files with given extension.
+
+        Args:
+            file_extension (str, optional): For example .mp3, .mp4, .ogg, etc.. Defaults to ".mp3".
+
+        Returns:
+            None: Does not return. Print inside method.
+        """
+        for element in self.get_all_files(file_extension):
+            print(element)
+        return None
+    
+    def get_all_folders(self) -> list:
+        """
+        Retriev all subfolders as a list
+
+        Returns:
+            list: All subfolders inside the rootfolder.
+        """
+        return [
+            os.path.join(root, element)
+            for root, directories, elements in os.walk(self.path)
+            for element in directories
+        ]
+    
+    def print_all_folders(self) -> None:
+        """
+        Prints all subfolders inside the rootfolder.
+
+        Returns:
+            None: Does not return. Print inside method.
+        """
+        for element in self.get_all_folders():
+            print(element)
+        return None
+
+
 class Datastorage:
     def __init__(self):
         """
