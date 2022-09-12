@@ -238,14 +238,4 @@ class Datastorage:
 
 
 if __name__ == "__main__":
-    # example code for testing
-    # delete later
-    datastorage: Datastorage = Datastorage()
-    datastorage.add_artist("Artist Name 1", ("Alternative", "names", "of", "artist"))
-    datastorage.add_artist("Artist Name 2", ("Some", "other", "alternative", "names"))
-    if not datastorage.change_artist("Artist Name 1", alternative_names=["New", "alternative", "names"]):
-        print("Did not change ist.")
-    if not datastorage.change_artist_name("Artist Name 1", "Artist Name 2"):
-        input("Could not change the name. Press ENTER to continue")
-    datastorage.truncate()
-    datastorage.delete()
+    ...
